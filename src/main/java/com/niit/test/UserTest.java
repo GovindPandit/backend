@@ -38,11 +38,10 @@ public class UserTest
 	}
 	
 	@Test
-	@Ignore
 	public void updateUser()
 	{
-		User user=udi.displayUserById(8);
-		user.setUsername("sagar");
+		User user=udi.displayUserById(14);
+		user.setUsername("Sameer123");
 		assertEquals(true, udi.updateUser(user));
 	}
 	
@@ -55,6 +54,7 @@ public class UserTest
 	
 	
 	@Test
+	@Ignore
 	public void displayUserById()
 	{
 		assertNotNull(udi.displayUserById(80));
