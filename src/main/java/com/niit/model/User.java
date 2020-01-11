@@ -8,10 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Entity
 @Table(name = "users")
+@Component
 public class User
 {
 	@Id

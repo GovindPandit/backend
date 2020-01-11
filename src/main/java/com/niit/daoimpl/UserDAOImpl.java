@@ -9,22 +9,33 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.niit.dao.UserDAO;
 import com.niit.model.User;
 import com.niit.util.HibernateUtil;
 
+@Repository("userDAO")
+@Transactional
 public class UserDAOImpl implements UserDAO 
 {
+	
 	@Autowired
 	SessionFactory sessionFactory;
 	
 	public boolean addUser(User user) 
 	{
-		Session session=sessionFactory.openSession();
-		Transaction tx=session.beginTransaction();
-		session.save(user);
-		tx.commit();
+		try
+		{
+			Session session=sessionFactory.openSession();
+			Transaction tx=session.beginTransaction();
+			session.save(user);
+			tx.commit();
+		}
+		catch (Exception e) 
+		{
+			System.out.println(e);
+		}
 		return true;
 	}
 

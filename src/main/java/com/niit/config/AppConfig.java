@@ -14,13 +14,17 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.niit.daoimpl.UserDAOImpl;
+import com.niit.service.UserServiceIMPL;
+
 @Configuration
-//@ComponentScan(basePackages="com.niit")
+@ComponentScan(basePackages="com.niit.*")
 @EnableTransactionManagement
 public class AppConfig 
 {
 	@Bean(name = "dataSource")
-	public DataSource getDataSource() {
+	public DataSource getDataSource() 
+	{
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/db");
@@ -30,7 +34,8 @@ public class AppConfig
 		return dataSource;
 	}
 	
-	  private Properties getHibernateProperties() {
+	  private Properties getHibernateProperties() 
+	  {
 	    	Properties properties = new Properties();
 	    	properties.put("hibernate.show_sql", "true");
 	    	properties.put("hibernate.hbm2ddl.auto", "update");
@@ -40,16 +45,17 @@ public class AppConfig
 	    
 	   @Bean (name = "sessionFactory")
 	   @Autowired
-	   public LocalSessionFactoryBean getSessionFactory() {
+	   public LocalSessionFactoryBean getSessionFactory() 
+	   {
+
 	      LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 	      sessionFactory.setDataSource(getDataSource());
 	      sessionFactory.setPackagesToScan("com.niit.model");
-	      sessionFactory.setHibernateProperties(getHibernateProperties());	 
+	      sessionFactory.setHibernateProperties(getHibernateProperties());
 	      return sessionFactory;
 	   }
 	    
 	    @Bean(name = "transactionManager")
-		@Autowired
 		public HibernateTransactionManager getTransactionManager(
 				SessionFactory sessionFactory) {
 			HibernateTransactionManager transactionManager = new HibernateTransactionManager(
@@ -57,4 +63,6 @@ public class AppConfig
 
 			return transactionManager;
 		}
+	    
+	   
 }
